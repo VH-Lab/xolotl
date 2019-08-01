@@ -15,7 +15,6 @@ pages:
     - Demos: 'tutorials/built-in-demos.md'
     - Your first neuron: 'tutorials/first-neuron.md'
     - Your first network: 'tutorials/first-network.md'
-    - Your first xgrid: tutorials/first-xgrid.md
     - Your first xfit: tutorials/first-xfit.md
   - How to:
     - Install and configure: how-to/install-configure.md
