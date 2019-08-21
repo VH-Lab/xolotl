@@ -125,7 +125,8 @@ methods
 			self.options.OutputFcn = @self.ga_logger;
 		case 'globalsearch'
 			self.engine = 'globalsearch';
-			self.options = GlobalSearch;
+			ms = MultiStart('FunctionTolerance',2e-4,'UseParallel',true);
+			self.options = GlobalSearch(ms);
 			self.options.Display = 'iter';
 			self.options.MaxTime = 100;
 			self.options.OutputFcn = @self.global_logger;
