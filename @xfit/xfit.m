@@ -50,7 +50,7 @@ end
 properties (Access = private)
 
 	SimFcnHash
-	
+
 
 end
 
@@ -123,6 +123,12 @@ methods
 			self.options.Display = 'iter';
 			self.options.MaxTime = 100;
 			self.options.OutputFcn = @self.ga_logger;
+		case 'globalsearch'
+			self.engine = 'globalsearch';
+			self.options = GlobalSearch;
+			self.options.Display = 'iter';
+			self.options.MaxTime = 100;
+			self.options.OutputFcn = @self.global_logger;
 		otherwise
 			error('Unknown engine')
 		end
@@ -148,6 +154,20 @@ methods
 		self.best_cost(state.Generation + 1) = min(state.Score);
 		self.timestamp(state.Generation + 1) = now;
 	end % end ga logger
+
+	function [stop] = global_logger(self, optimValues, state)
+		stop = false;
+		try
+			if isempty(optimValues.bestfval)
+				self.best_cost(optimValues.localrunindex+1) = NaN;
+			else
+				self.best_cost(optimValues.localrunindex+1) = optimValues.bestfval;
+			end
+		catch
+			keyboard;
+		end
+		self.timestamp(optimValues.localrunindex+1) = now;
+	end % end global search logger
 
 end % end methods
 

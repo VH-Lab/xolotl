@@ -1,28 +1,28 @@
-% 
-%        __ _ _   
-% __  __/ _(_) |_ 
+%
+%        __ _ _
+% __  __/ _(_) |_
 % \ \/ / |_| | __|
-%  >  <|  _| | |_ 
+%  >  <|  _| | |_
 % /_/\_\_| |_|\__|
-%                 
-% 
+%
+%
 % ### fit
-% 
+%
 % **Syntax**
-% 
+%
 % ```matlab
 % best_fit_params = xf.fit;
 % ```
-% 
+%
 % **Description**
-% 
-% Assuming `xf` is a `xfit` object, runs the optimization 
-% algorithm in an effort to minimze the cost function using 
+%
+% Assuming `xf` is a `xfit` object, runs the optimization
+% algorithm in an effort to minimze the cost function using
 % specified conditions. Returns a vector of the best-fit
-% parameters. Only the last (best-fit) value is returned. 
-% 
+% parameters. Only the last (best-fit) value is returned.
+%
 % The best-fit value is also used to update the seed.
-% 
+%
 % See Also:
 % xfit.evaluate
 %     * [How to fit a xolotl model](https://xolotl.readthedocs.io/en/master/how-to/fit-parameters/)
@@ -56,7 +56,7 @@ case 'patternsearch'
 	self.seed = best_fit_params;
 
 case 'particleswarm'
-	
+
 	self.options.InitialSwarmMatrix = self.seed(:)';
 	best_fit_params = particleswarm(@(params) self.evaluate(params),length(self.ub),self.lb,self.ub,self.options);
 	self.seed = best_fit_params;
@@ -64,7 +64,11 @@ case 'ga'
 	self.options.InitialPopulationMatrix = self.seed(:)';
 	best_fit_params = ga(@(params) self.evaluate(params), length(self.ub), [], [], [], [], self.lb, self.ub, self.nonlcon, self.options);
 	self.seed = best_fit_params;
-
+case 'globalsearch'
+	% TODO
+	problem = createOptimProblem('fmincon', 'x0', self.seed(:)', 'lb', self.lb, 'ub', self.ub, 'nonlcon', self.nonlcon, 'objective', @(params) self.evaluate(params));
+	best_fit_params = run(self.options, problem);
+	self.seed = best_fit_params;
 end
 
 % now update the parameters of the xolotl object
