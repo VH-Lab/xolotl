@@ -103,6 +103,7 @@ methods (Test)
     testXolotlAdd(self)
     testGoToExamples(self)
     testRebase(self)
+    testHowTos(self)
 
 
 end % test
