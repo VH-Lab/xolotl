@@ -1,8 +1,8 @@
 classdef xtest < matlab.unittest.TestCase
-    
+
 
 properties
-    
+
     % xolotl objects
     single_comp@xolotl
 
@@ -16,7 +16,7 @@ end
 
 methods(TestMethodSetup)
     function createSingleCompartment(self)
-        % 
+        %
         x = xolotl;
 
         A = 0.0628;
@@ -97,14 +97,14 @@ methods(TestMethodSetup)
 
     end
 end
-    
+
 methods (Test)
-    
+
     testXolotlAdd(self)
     testGoToExamples(self)
     testRebase(self)
 
 
 end % test
-    
+
 end
