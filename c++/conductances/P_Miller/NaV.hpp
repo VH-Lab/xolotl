@@ -21,13 +21,13 @@ public:
         E = E_;
         m = m_;
         h = h_;
-        n=n_;
+        //n=n_;
 
         // defaults 
-        if (isnan(gbar)) { gbar = 12e-6; }
+        if (isnan(gbar)) { gbar == 12e-6; }
         
         
-        if (isnan (E)) { E/1000 = 0.045; }
+        if (isnan (E)) { E/1000 == 0.045; }
 
         unitary_conductance = 20e-6; // uS
 
@@ -64,7 +64,7 @@ double NaV::AlphaM(double V) {
 }
 
 double NaV::AlphaH(double V) {
-    return 70*exp(50*(-V-0.070));
+    return 70*exp(50*(-V/1000-0.070));
 }
 
 // double NaV::AlphaN(double V) {
@@ -98,6 +98,6 @@ double NaV::h(double V, double Ca, double h_inf, double tau_h) {return (h_inf-h)
 // double NaV::n_inf(double V, double Ca) {return AlphaN(V)/(AlphaN(V)+BetaN(V));}
 // double NaV::tau_n(double V, double Ca) {return 1/(AlphaN(V)+BetaN(V));}x
 
-double NaV::g_bar(double V, double Ca,double g_bar, double E) {return g_bar*m*m*h*(E-V);}
+//double NaV::g_bar(double V, double Ca,double g_bar, double E) {return g_bar*m*m*h*(E-V);}
 
 #endif
