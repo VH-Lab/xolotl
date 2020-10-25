@@ -27,7 +27,7 @@ public:
         if (isnan(gbar)) { gbar = 12e-6; }
         
         
-        if (isnan (E)) { E = 0.045; }
+        if (isnan (E)) { E/1000 = 0.045; }
 
         unitary_conductance = 20e-6; // uS
 
@@ -60,7 +60,7 @@ double NaV::AlphaM(double V) {
     if V==-0.045
     return 1e3;
     else
-    return (1e5*(-V-0.045))/(exp(100*(-V-0.045))-1);
+    return (1e5*(-V/1000-0.045))/(exp(100*(-V/1000-45))-1);
 }
 
 double NaV::AlphaH(double V) {
@@ -75,11 +75,11 @@ double NaV::AlphaH(double V) {
 // }
 
 double NaV::BetaM(double V) {
-    return 4*exp(-V/18);
+    return 4*exp((-V/1000)/18);
 }
 
 double NaV::BetaH(double V) {
-    return 1/(exp((30-V)/10)+1);
+    return 1/(exp((30-V/1000)/10)+1);
 }
 
 // double NaV::BetaN(double V) {
@@ -89,10 +89,10 @@ double NaV::BetaH(double V) {
 // problematic -- this doesn't really work
 double NaV::m_inf(double V, double Ca) {return AlphaM(V)/(AlphaM(V)+BetaM(V));}
 
-double NaV::tau_m(double V, double Ca) {return 1.0/(AlphaM(V)+BetaM(V));}
+double NaV::tau_m(double V, double Ca) {return 1000.0/(AlphaM(V)+BetaM(V));}
 double NaV::m(double V, double Ca, double m_inf, double tau_m) {return m_inf-m*dt/tau_m;}
 double NaV::h_inf(double V, double Ca) {return AlphaH(V)/(AlphaH(V)+BetaH(V));}
-double NaV::tau_h(double V, double Ca) {return 1.0/(AlphaH(V)+BetaH(V));}
+double NaV::tau_h(double V, double Ca) {return 1000.0/(AlphaH(V)+BetaH(V));}
 double NaV::h(double V, double Ca, double h_inf, double tau_h) {return (h_inf-h)*dt/tau_h;}
 
 // double NaV::n_inf(double V, double Ca) {return AlphaN(V)/(AlphaN(V)+BetaN(V));}
