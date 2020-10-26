@@ -22,12 +22,9 @@ public:
         m = m_;
 
         // defaults 
-        if (isnan(gbar)) { gbar = 3.6e-6; }
+        if (isnan(gbar)) { gbar = 0; }
+        if (isnan (E)) { E = -82; }
         
-        if (isnan (E)) { E =0.082; }
-
-        unitary_conductance = 20e-6; // uS
-
         p = 4;
     }
 
@@ -35,8 +32,8 @@ public:
     double tau_m(double, double);
     string getClass(void);
 
-    double AlphaM(double);
-    double BetaM(double);
+    double Alpha(double);
+    double Beta(double);
 
 };
 
@@ -44,23 +41,21 @@ string Kd::getClass(){
     return "Kd";
 }
 
-double Kd::AlphaM(double V) {
+double Kd::Alpha(double V) {
     if (V==-060) {
-            return 100; // return 100*1e-3; // ms
+            return 100.0; // return 100*1e-3; // ms
     }
     else {
         return (1e4*(-V/1000.0-0.060))/(exp(100*(-V/1000.0-0.060))-1); //ms
     }
 }
 
-double Kd::BetaM(double V) {
+double Kd::Beta(double V) {
     return 125*exp((-V/1000.0-0.070)/0.08);
 }
 
-double Kd::m_inf(double V, double Ca) {
-    return AlphaM(V)/(AlphaM(V)+BetaM(V));
-}
-double Kd::tau_m(double V, double Ca) {return 1000.0/(AlphaM(V)+BetaM(V));}
+double Kd::m_inf(double V, double Ca) {return Alpha(V)/(Alpha(V)+Beta(V)); }
+double Kd::tau_m(double V, double Ca) {return 1000.0/(Alpha(V)+Beta(V));}
 
 
 #endif
