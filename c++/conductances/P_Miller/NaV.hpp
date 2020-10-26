@@ -57,7 +57,7 @@ string NaV::getClass(){return "NaV";}
 
 
 double NaV::AlphaM(double V) {
-    if V==-0.045
+    if V/1000==-0.045
     return 1e3;
     else
     return (1e5*(-V/1000-0.045))/(exp(100*(-V/1000-45))-1);
