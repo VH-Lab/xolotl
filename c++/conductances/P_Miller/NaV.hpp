@@ -48,10 +48,10 @@ public:
 string NaV::getClass(){return "NaV";}
 
 double NaV::AlphaM(double V) {
-    if (V/1000==-0.045) {
+    if (V==-0.045) {
         return 1e3;
     } else {
-        return (1e5*(-V/1000-0.045))/(exp(100*(-V/1000-45))-1);
+        return (1e5*(-V/1000-0.045))/(exp(100*(-V/1000-0.045))-1);
     }
 }
 
@@ -67,11 +67,11 @@ double NaV::AlphaH(double V) {
 // }
 
 double NaV::BetaM(double V) {
-    return 4*exp((-V/1000)/18);
+    return 4000*exp((-V/1000-0.070)/0.018);
 }
 
 double NaV::BetaH(double V) {
-    return 1/(exp((30-V/1000)/10)+1);
+    return 1000/(1+exp(100*(-V/1000-0.040)));
 }
 
 // double NaV::BetaN(double V) {
