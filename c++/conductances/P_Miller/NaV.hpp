@@ -48,7 +48,7 @@ public:
 string NaV::getClass(){return "NaV";}
 
 double NaV::AlphaM(double V) {
-    if (V==-0.045) {
+    if (V/1000==-0.045) {
         return 1e3;
     } else {
         return (1e5*(-V/1000-0.045))/(exp(100*(-V/1000-0.045))-1);
@@ -78,9 +78,7 @@ double NaV::BetaH(double V) {
 //     return 125*exp((-V-0.070)/0.08);
 // }
 
-// problematic -- this doesn't really work
 double NaV::m_inf(double V, double Ca) {return AlphaM(V)/(AlphaM(V)+BetaM(V));}
-
 double NaV::tau_m(double V, double Ca) {return 1000.0/(AlphaM(V)+BetaM(V));}
 double NaV::h_inf(double V, double Ca) {return AlphaH(V)/(AlphaH(V)+BetaH(V));}
 double NaV::tau_h(double V, double Ca) {return 1000.0/(AlphaH(V)+BetaH(V));}

@@ -42,7 +42,7 @@ string Kd::getClass(){
 }
 
 double Kd::Alpha(double V) {
-    if (V==-060) {
+    if (V/1000 == -0.060) {
             return 100.0; // return 100*1e-3; // ms
     }
     else {
